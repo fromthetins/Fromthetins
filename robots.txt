@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /Fromthetins/seo/
+Sitemap: https://fromthetins.github.io/Fromthetins/sitemap.xml
