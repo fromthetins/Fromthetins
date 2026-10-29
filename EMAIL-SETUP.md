@@ -1,28 +1,27 @@
-# Enable automatic email enquiries
+# Connect a replacement email backend
 
 Recipient: **teachers@fromthetins.in**
-Provider: **FormSubmit**, chosen by the site owner.
 
-## One-time activation
+## Current status
 
-1. Upload the updated GitHub Pages package to the repository’s publishing root, preserving the `assets/` folder. The existing public URL remains https://fromthetins.github.io/Fromthetins/.
-2. Open the published HTTPS page and submit one test enquiry using an email address you control. The site sends submissions through FormSubmit; it does not open the visitor’s email app.
-3. Check **teachers@fromthetins.in**, including its spam folder, for the FormSubmit activation email. Follow its confirmation link. Make sure the mailbox itself can receive mail.
-4. After activation, submit a fresh test enquiry and verify it arrives in that inbox. Do not assume the first, pre-activation enquiry was delivered.
-5. If activation does not appear, check the provider’s instructions at https://formsubmit.co/. No email password or secret key belongs in the public HTML.
+The previous provider has been removed at the owner’s request. The form currently prepares a copyable enquiry only. Its button and status text explicitly say that nothing is sent. The direct email link still works through the visitor’s email app.
 
-**Status at handoff:** the integration is configured and its success/error/offline flows have been tested with mocked provider responses. No real test submission, activation email, mailbox verification or inbox-delivery test was performed by the assistant. Deployment and activation remain the owner’s steps.
+Automatic sending is **not enabled** until a replacement endpoint or deployed backend is supplied and tested. The assistant has not changed the already-published website; upload the updated files to remove the old connection there too.
 
-## How it works
+## Recommended option: a public Formspree endpoint
 
-- JavaScript: JSON POST to `https://formsubmit.co/ajax/teachers@fromthetins.in`.
-- Without JavaScript: native POST to `https://formsubmit.co/teachers@fromthetins.in`, which opens the provider’s hosted flow.
-- The visitor’s name, email, selected interest and message are shared with FormSubmit for delivery. This is disclosed beside the Send button.
-- No SMTP credentials are embedded and there is no locally hosted email backend.
-- In-flight duplicate submissions are blocked. Requests time out after 15 seconds without automatic retries.
-- A positive API response is a submission acknowledgment, not an inbox-delivery receipt. Timeout errors may occur after a request reached the provider; avoid blindly resending.
-- The copyable enquiry and direct email link remain available as fallbacks. No enquiry is persisted in browser storage.
+1. Create a form in your account at https://formspree.io/.
+2. Set its destination to **teachers@fromthetins.in** and complete any recipient-verification steps requested by the service.
+3. Copy the form’s public endpoint URL, using the structure `https://formspree.io/f/<your-form-id>`.
+4. Share that public endpoint with the assistant so it can connect the Send button, provider disclosure, response handling and native POST fallback.
+5. Deploy the resulting update, submit one test enquiry, and check the recipient inbox before relying on the form.
 
-## Offline files and previews
+The public endpoint is intended for a browser-facing form. Do not share an email password or private API key. No account or form has been created for you by the assistant.
 
-All visual assets remain embedded in `The-Tins.html`; the page can be read offline. Sending requires internet access and provider acceptance of the page’s origin. Use the published HTTPS site for real submissions. Local `file://` pages may be rejected by the provider, and Arena’s file viewer blocks outbound network requests. The live preview can exercise the request flow, but the public website is the final deployment to test.
+## Alternative: your own backend
+
+Provide a deployed HTTPS endpoint that accepts enquiry submissions and sends mail server-side. SMTP credentials or email-service API secrets must remain in server-side environment variables, never in the single-file HTML or public repository. A static GitHub Pages website cannot run that backend itself.
+
+## Offline viewing
+
+The self-contained HTML remains readable offline. Automatic email sending, once configured, will require internet access. Arena’s file viewer blocks outgoing network requests; test delivery on the deployed public HTTPS website.

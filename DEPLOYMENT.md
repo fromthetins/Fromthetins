@@ -18,6 +18,6 @@ Canonical, Open Graph, social-image URLs and JSON-LD now use the real public URL
 
 This archive prepares the files; it has not uploaded or deployed them to GitHub.
 
-## Automatic email delivery — activation required
+## Email backend currently disconnected
 
-The Send enquiry button submits through FormSubmit to teachers@fromthetins.in without opening an email app. Follow EMAIL-SETUP.md: submit a test from the deployed HTTPS page, confirm the FormSubmit activation email in that mailbox, then submit again and verify delivery. Activation and real inbox delivery have not been performed by the assistant. Offline viewing still works, but sending needs internet access.
+The previous provider has been removed. Upload this version to remove that connection from the public website too. The form now prepares a draft only and explicitly does not send it. Follow EMAIL-SETUP.md to connect a replacement public form endpoint before enabling automatic delivery. The direct teachers@fromthetins.in email link remains available.
